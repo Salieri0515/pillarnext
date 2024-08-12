@@ -1,0 +1,14 @@
+defaults:
+  - base/base_det_train@train_dataset
+  - base/base_det_val@val_dataset
+
+train_dataset:
+  _target_: det3d.datasets.custom.CustomDatasetVal
+  nsweeps: 10
+  info_path: this_is_useless.pkl
+  resampling: True
+
+val_dataset:
+  _target_: ${data.train_dataset._target_}
+  nsweeps: 10
+  info_path: /root/pillarnext/mycode/debug_data.pkl # this is associated with the way loader opens, in nusc, they open it with root_path
