@@ -70,6 +70,7 @@ class NuScenesDataset(BaseDataset):
         self.infos = _nusc_infos
 
     def read_file(self, path, num_point_feature=4):
+        # xyz, intensity, ring index
         points = np.fromfile(os.path.join(self._root_path, path),
                              dtype=np.float32).reshape(-1, 5)[:, :num_point_feature]
         return points
@@ -117,7 +118,7 @@ class NuScenesDataset(BaseDataset):
         times = np.concatenate(sweep_times_list, axis=0).astype(points.dtype)
 
         res["points"] = np.hstack([points, times])
-
+        # xyz, intensity, time stamp
         return res
 
     def evaluation(self, detections, output_dir=None, testset=False):
